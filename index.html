@@ -10,15 +10,30 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <div id="app"> {{text}} </div>
     <script>
-      const vm= Vue.createApp({
+      const app= Vue.createApp({
         data(){
-            return {
-                text:"hola vue"
+            return{
+                items:["uno","dos","tres"]
             };
-        }
+        },
+        template:`
+            <ul>
+                <v-item v-for = "item in items" v-bind:text="item"></v-item>
+                
+            </ul>
 
-       }).mount("#app");
-       console.log(vm);
+        `
+       });
+       app.component("v-item",{
+        props:{
+            text:{
+                default:"Texto vacio"
+                 }
+        },
+        template:`<li>{{text}}</li> `
+       } );
+
+      const vm=app.mount("#app");     
     </script>
 
 </body>

@@ -10,15 +10,42 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <div id="app"> {{text}} </div>
     <script>
-      const vm= Vue.createApp({
+      const app= Vue.createApp({
         data(){
-            return {
-                text:"hola vue"
-            };
-        }
+            return{
+                text:"Hola Vue"
+            }
+        },
+        provide:{
+            otroTexto:"Hola mundo"
+        },
+        template:`
+        <div> {{text}} </div>
+        <otro />
 
-       }).mount("#app");
-       console.log(vm);
+        `
+
+      })
+
+      app.component("otro",{
+        props:{
+
+        },
+        template:`
+         <tercer/>
+        `           
+        
+      }),
+      app.component("tercer",{
+        inject:["otroTexto"],
+        template:`
+         <div> {{otroTexto}} </div>
+        `           
+        
+      });
+
+     const vm=app.mount("#app");
+    
     </script>
 
 </body>
